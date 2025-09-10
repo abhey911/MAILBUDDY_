@@ -14,7 +14,7 @@ Email:
 Reply:
 """
     # Initialize Gemini Pro model
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('models/gemma-3-4b-it')
     
     # Generate response
     response = model.generate_content(prompt)
