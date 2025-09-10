@@ -1,7 +1,8 @@
 import streamlit as st
-import openai
+import google.generativeai as genai
 
-client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# Configure Gemini API
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 def generate_email_response(email_text, tone):
     prompt = f"""
@@ -12,8 +13,9 @@ Email:
 
 Reply:
 """
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response.choices[0].message.content
+    # Initialize Gemini Pro model
+    model = genai.GenerativeModel('gemini-pro')
+    
+    # Generate response
+    response = model.generate_content(prompt)
+    return response.text
